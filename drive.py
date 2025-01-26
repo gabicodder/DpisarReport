@@ -113,23 +113,22 @@ def unify_files(input_dir, output_file):
         print("No se encontraron archivos para unificar.")
 
 def main():
-    # service = authenticate_drive()
-    # files = list_files(service, FOLDER_ID)
+    service = authenticate_drive()
+    files = list_files(service, FOLDER_ID)
     
-    # if not files:
-    #     print("No se encontraron archivos en la carpeta.")
-    #     return
+    if not files:
+        print("No se encontraron archivos en la carpeta.")
+        return
 
     output_dir = 'downloads'
-    # os.makedirs(output_dir, exist_ok=True)
+    os.makedirs(output_dir, exist_ok=True)
 
-    # for file in files:
-    #     print(f"Descargando: {file['name']}")
-    #     download_file(service, file['id'], file['name'], output_dir)
+    for file in files:
+        print(f"Descargando: {file['name']}")
+        download_file(service, file['id'], file['name'], output_dir)
 
     output_file = 'unified_output.csv'
     unify_files(output_dir, output_file)
-    ##print(f"Proceso completado. Archivos unificados en {output_file}.")
 
 if __name__ == '__main__':
     main()
