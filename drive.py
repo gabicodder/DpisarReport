@@ -71,16 +71,19 @@ def unify_files(input_dir, output_file):
                 if sheet_name.strip().lower() == "metas":
                     print(f"Procesando hoja: {sheet_name} - archivo {file_name}")
                     data = pd.read_excel(file_path,sheet_name=sheet_name)
+                    data['Archivo_origen'] = file_name
                     all_data_tienda.append(data)
-            
+                                
                 elif sheet_name.strip().lower() == "valores ganando":
                     print(f"Procesando hoja: {sheet_name} - archivo {file_name}")
                     data = pd.read_excel(file_path,sheet_name=sheet_name)
+                    data['Archivo_origen'] = file_name
                     all_data_vendedor.append(data)
                 
                 elif sheet_name.strip().lower() == "asistencia":
                     print(f"Procesando hoja: {sheet_name} - archivo {file_name}")
                     data = pd.read_excel(file_path,sheet_name=sheet_name)
+                    data['Archivo_origen'] = file_name
                     all_data_asistencia.append(data)
                 
         elif file_name.endswith('.txt'):
@@ -110,19 +113,19 @@ def unify_files(input_dir, output_file):
         print("No se encontraron archivos para unificar.")
 
 def main():
-    service = authenticate_drive()
-    files = list_files(service, FOLDER_ID)
+    # service = authenticate_drive()
+    # files = list_files(service, FOLDER_ID)
     
-    if not files:
-        print("No se encontraron archivos en la carpeta.")
-        return
+    # if not files:
+    #     print("No se encontraron archivos en la carpeta.")
+    #     return
 
     output_dir = 'downloads'
-    os.makedirs(output_dir, exist_ok=True)
+    # os.makedirs(output_dir, exist_ok=True)
 
-    for file in files:
-        print(f"Descargando: {file['name']}")
-        download_file(service, file['id'], file['name'], output_dir)
+    # for file in files:
+    #     print(f"Descargando: {file['name']}")
+    #     download_file(service, file['id'], file['name'], output_dir)
 
     output_file = 'unified_output.csv'
     unify_files(output_dir, output_file)
